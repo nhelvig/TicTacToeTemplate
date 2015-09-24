@@ -7,7 +7,7 @@ public class Main {
 
         PrintStream printStreamOut = new PrintStream(System.out);
         Board board = new Board(printStreamOut);
-        Game game = new Game(printStreamOut, new NicksBufferedReader());
+        Game game = new Game(printStreamOut, new NicksBufferedReader(), board);
         game.start();
     }
 }

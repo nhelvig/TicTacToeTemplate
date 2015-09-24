@@ -9,6 +9,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -19,65 +20,23 @@ public class GameTest {
     Game game;
     PrintStream printStream;
     private NicksBufferedReader reader;
+    private Board board;
 
     @Before
     public void setup() {
         reader = mock(NicksBufferedReader.class);
+        board = mock(Board.class);
         printStream = mock(PrintStream.class);
-        game = new Game(printStream, reader);
+        game = new Game(printStream, reader, board);
     }
 
     @Test
-    public void shouldGetANumberFromThePlayerWhenRequestingNextMove() {
-        when(reader.readLine()).thenReturn("6");
+    public void shouldTellTheBoardToDrawAfterGettingAGuess() {
+        when(reader.readLine()).thenReturn("1");
 
-        assertEquals(game.getNextMove(), "6");
+        game.nextMove();
+
+        verify(board).drawMove("1");
     }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersOne() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopMiddleSpaceWhenUserEntersTwo() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersThree() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersFour() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersFive() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersSix() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersSeven() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersEight() {
-
-    }
-
-    @Test
-    public void shouldDrawXInTopLeftSpaceWhenUserEntersNine() {
-
-    }
-
 
 }

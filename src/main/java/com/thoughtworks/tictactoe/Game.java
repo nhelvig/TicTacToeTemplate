@@ -8,16 +8,18 @@ import java.io.PrintStream;
 public class Game {
     private PrintStream printStream;
     private NicksBufferedReader reader;
+    private Board board;
 
-    public Game(PrintStream printStream, NicksBufferedReader reader) {
+    public Game(PrintStream printStream, NicksBufferedReader reader, Board board) {
         this.printStream = printStream;
         this.reader = reader;
+        this.board = board;
     }
 
-    public String getNextMove() {
+    public void nextMove() {
         printStream.println("Please enter a position (1-9)");
         String playerMove = reader.readLine();
-        return playerMove;
+        board.drawMove(playerMove);
     }
 
     public void start() {
