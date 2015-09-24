@@ -17,26 +17,33 @@ import static org.mockito.Mockito.when;
  */
 public class GameTest {
 
-    Game game;
-    PrintStream printStream;
+    private Game game;
+    private PrintStream printStream;
     private NicksBufferedReader reader;
     private Board board;
+    private Player player1;
+    private Player player2;
+
 
     @Before
     public void setup() {
+        player1 = mock(Player.class);
+        player2 = mock(Player.class);
         reader = mock(NicksBufferedReader.class);
         board = mock(Board.class);
         printStream = mock(PrintStream.class);
-        game = new Game(printStream, reader, board);
+        game = new Game(board, player1, player2);
     }
 
     @Test
     public void shouldTellTheBoardToDrawAfterGettingAGuess() {
-        when(reader.readLine()).thenReturn("1");
+        when(player1.getNextMove()).thenReturn("1");
 
-        game.nextMove();
+        game.start();
 
-        verify(board).drawMove("1");
+        verify(board).drawMove("1", player1);
     }
+
+
 
 }
