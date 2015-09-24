@@ -32,18 +32,28 @@ public class GameTest {
         reader = mock(NicksBufferedReader.class);
         board = mock(Board.class);
         printStream = mock(PrintStream.class);
-        game = new Game(board, player1, player2);
+        game = new Game(board, player1, player2, printStream);
     }
 
     @Test
     public void shouldTellTheBoardToDrawAfterGettingAGuess() {
         when(player1.getNextMove()).thenReturn("1");
+        when(board.isFull()).thenReturn(false, true);
+        when(board.verifyLegalMove("1")).thenReturn(true);
 
         game.start();
 
         verify(board).drawMove("1", player1);
     }
 
+    @Test
+    public void shouldSayTheGameIsADrawWhenTheBoardIsFull() {
+        when(board.isFull()).thenReturn(true);
+
+        game.start();
+
+        verify(printStream).println("The game is a draw!");
+    }
 
 
 }

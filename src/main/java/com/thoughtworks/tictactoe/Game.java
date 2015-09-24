@@ -11,11 +11,13 @@ public class Game {
     private Player player1;
     private Player player2;
     private Player currentPlayer;
+    private PrintStream printStream;
 
-    public Game(Board board, Player player1, Player player2) {
+    public Game(Board board, Player player1, Player player2, PrintStream printStream) {
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
+        this.printStream = printStream;
     }
 
     public void start() {
@@ -30,12 +32,13 @@ public class Game {
             String move = currentPlayer.getNextMove();
             if (board.verifyLegalMove(move)) {
                 board.drawMove(move, currentPlayer);
-                switchPlayers();
+                switchCurrentPlayer();
             }
         }
+        printStream.println("The game is a draw!");
     }
 
-    public void switchPlayers() {
+    public void switchCurrentPlayer() {
         if (currentPlayer.equals(player1)) {
             currentPlayer = player2;
         } else {

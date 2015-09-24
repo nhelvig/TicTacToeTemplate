@@ -116,4 +116,9 @@ public class BoardTest {
         assertEquals(true, board.isFull());
     }
 
+    @Test
+    public void shouldRecognizeAWinningCombinationWhenThereIsOne() {
+
+    }
+
 }
