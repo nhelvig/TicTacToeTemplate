@@ -35,7 +35,7 @@ public class Game {
                 switchCurrentPlayer();
             }
         }
-        printStream.println("The game is a draw!");
+        printStream.println("Game is a draw.");
     }
 
     public void switchCurrentPlayer() {
