@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Board {
     private  String currentBoard;
     private PrintStream printStream;
-    private boolean[] positionTaken;
+    private Player[] positionTaken;
 
     public Board(PrintStream printStream) {
         this.currentBoard = "   |   |   \n------------\n   |   |   \n------------\n   |   |   ";
         this.printStream = printStream;
-        this.positionTaken = new boolean[9];
+        this.positionTaken = new Player[9];
     }
 
 
@@ -22,12 +22,12 @@ public class Board {
         printStream.println(currentBoard);
     }
 
-    public void drawMove(String s, Player player1) {
+    public void drawMove(String s, Player player) {
         int positionOnBoard = Integer.parseInt(s);
-        positionTaken[positionOnBoard - 1] = true;
+        positionTaken[positionOnBoard - 1] = player;
         int positionInCurrentBoard = 0;
         positionInCurrentBoard = getPositionInCurrentBoard(positionOnBoard, positionInCurrentBoard);
-        this.currentBoard = this.currentBoard.substring(0, positionInCurrentBoard) + player1.getSymbol() + this.currentBoard.substring(positionInCurrentBoard + 1, this.currentBoard.length());
+        this.currentBoard = this.currentBoard.substring(0, positionInCurrentBoard) + player.getSymbol() + this.currentBoard.substring(positionInCurrentBoard + 1, this.currentBoard.length());
         drawBoard();
     }
 
@@ -44,7 +44,7 @@ public class Board {
 
     public boolean verifyLegalMove(String s) {
         int move = Integer.parseInt(s) - 1;
-        if (positionTaken[move]) {
+        if (positionTaken[move] != null) {
             printStream.println("Location already taken. Please try again.");
             return false;
         }
@@ -52,11 +52,16 @@ public class Board {
     }
 
     public boolean isFull() {
-        for (boolean spotTaken : positionTaken) {
-            if (!spotTaken) {
+        for (Player player : positionTaken) {
+            if (player == null) {
                 return false;
             }
         }
         return true;
+    }
+
+    public boolean hasWinningCombination() {
+//        Player firstSpot =
+        return false;
     }
 }

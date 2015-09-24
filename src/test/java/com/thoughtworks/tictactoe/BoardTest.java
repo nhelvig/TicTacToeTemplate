@@ -118,7 +118,19 @@ public class BoardTest {
 
     @Test
     public void shouldRecognizeAWinningCombinationWhenThereIsOne() {
+        board.drawMove("1", player1);
+        board.drawMove("2", player1);
+        board.drawMove("3", player1);
 
+        assertEquals(true, board.hasWinningCombination());
     }
 
+    @Test
+    public void shouldNotRecognizeAWinningCombinationWhenThereIsntOne() {
+        board.drawMove("1", player1);
+        board.drawMove("2", player1);
+        board.drawMove("3", player2);
+
+        assertEquals(false, board.hasWinningCombination());
+    }
 }

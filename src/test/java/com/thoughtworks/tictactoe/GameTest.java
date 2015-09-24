@@ -52,7 +52,7 @@ public class GameTest {
 
         game.start();
 
-        verify(printStream).println("The game is a draw!");
+        verify(printStream).println("Game is a draw.");
     }
 
 
