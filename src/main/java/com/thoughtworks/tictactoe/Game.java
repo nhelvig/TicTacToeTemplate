@@ -28,14 +28,18 @@ public class Game {
 
     private void nextMove() {
 
-        while (!board.isFull()) {
+        while (!board.isFull() && !board.hasWinningCombination()) {
             String move = currentPlayer.getNextMove();
             if (board.verifyLegalMove(move)) {
                 board.drawMove(move, currentPlayer);
                 switchCurrentPlayer();
             }
         }
-        printStream.println("Game is a draw.");
+        if (board.hasWinningCombination()) {
+            printStream.println(currentPlayer.getName() + " wins!");
+        } else {
+            printStream.println("Game is a draw.");
+        }
     }
 
     public void switchCurrentPlayer() {

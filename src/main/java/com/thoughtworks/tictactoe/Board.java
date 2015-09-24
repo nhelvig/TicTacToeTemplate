@@ -1,20 +1,29 @@
 package com.thoughtworks.tictactoe;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 /**
  * Created by nhelvig on 9/24/15.
  */
 public class Board {
+    private  int[][] winningCombinations = new int[8][3];
     private  String currentBoard;
     private PrintStream printStream;
-    private Player[] positionTaken;
+    private Player[] playerPosition;
 
     public Board(PrintStream printStream) {
         this.currentBoard = "   |   |   \n------------\n   |   |   \n------------\n   |   |   ";
         this.printStream = printStream;
-        this.positionTaken = new Player[9];
+        this.playerPosition = new Player[9];
+        this.winningCombinations = new int[][]{
+                {0,1,2},
+                {3,4,5},
+                {6,7,8},
+                {0,3,6},
+                {1,4,7},
+                {2,5,8},
+                {0,4,8},
+                {2,4,6}};
     }
 
 
@@ -24,7 +33,7 @@ public class Board {
 
     public void drawMove(String s, Player player) {
         int positionOnBoard = Integer.parseInt(s);
-        positionTaken[positionOnBoard - 1] = player;
+        playerPosition[positionOnBoard - 1] = player;
         int positionInCurrentBoard = 0;
         positionInCurrentBoard = getPositionInCurrentBoard(positionOnBoard, positionInCurrentBoard);
         this.currentBoard = this.currentBoard.substring(0, positionInCurrentBoard) + player.getSymbol() + this.currentBoard.substring(positionInCurrentBoard + 1, this.currentBoard.length());
@@ -44,7 +53,7 @@ public class Board {
 
     public boolean verifyLegalMove(String s) {
         int move = Integer.parseInt(s) - 1;
-        if (positionTaken[move] != null) {
+        if (playerPosition[move] != null) {
             printStream.println("Location already taken. Please try again.");
             return false;
         }
@@ -52,7 +61,7 @@ public class Board {
     }
 
     public boolean isFull() {
-        for (Player player : positionTaken) {
+        for (Player player : playerPosition) {
             if (player == null) {
                 return false;
             }
@@ -61,7 +70,16 @@ public class Board {
     }
 
     public boolean hasWinningCombination() {
-//        Player firstSpot =
+        for (int[] combination : winningCombinations) {
+            Player firstSpace = playerPosition[combination[0]];
+            Player secondSpace = playerPosition[combination[1]];
+            Player thirdSpace = playerPosition[combination[2]];
+            if (firstSpace != null && secondSpace != null && thirdSpace != null) {
+                if (firstSpace.equals(secondSpace) && secondSpace.equals(thirdSpace)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }
